@@ -16,12 +16,13 @@ export const useProps = (props: ConfirmProps) => {
 };
 
 export const useBodyProps = (bodyProps: ConfirmBodyProps) => {
-  const { inputRef, payer, receiver, payerAvatar, receiverAvatar, from, to, available, exchangeRate, quickButtons, value, onChange, defaultValue, min, max, onQuickButtonClick, timer } = bodyProps;
+  const { inputRef, payer, receiver, payerAvatar, receiverAvatar, from, to, available, exchangeRate, quickButtons, value, onChange, defaultValue, min, max, onQuickButtonClick, timer, onTimeout } =
+    bodyProps;
   const flowProps: ConfirmFlowProps = useMemo(() => ({ payer, receiver, payerAvatar, receiverAvatar, from, to }), [payer, receiver, payerAvatar, receiverAvatar, from, to]);
   const amountProps: ConfirmAmountProps = useMemo(
     () => ({ available, payerAvatar, exchangeRate, quickButtons, value, onChange, defaultValue, min, max, onQuickButtonClick, inputRef }),
     [available, payerAvatar, exchangeRate, quickButtons, value, onChange, defaultValue, min, max, onQuickButtonClick, inputRef],
   );
-  const alertProps: ConfirmAlertProps = useMemo(() => ({ timer }), [timer]);
+  const alertProps: ConfirmAlertProps = useMemo(() => ({ timer, onTimeout }), [timer, onTimeout]);
   return { flowProps, amountProps, alertProps };
 };

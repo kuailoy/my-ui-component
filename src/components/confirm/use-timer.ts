@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 
-export const useTimer = (timer: number) => {
+export type TimeoutHandler = () => void;
+
+export const useTimer = (timer: number, onTimeout: TimeoutHandler) => {
   const [seconds, setSeconds] = useState(timer);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setSeconds((prevSeconds) => {
         if (prevSeconds <= 0) {
+          onTimeout();
           clearInterval(interval);
           return 0;
         }
