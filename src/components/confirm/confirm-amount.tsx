@@ -24,7 +24,7 @@ export interface ConfirmAmountProps {
   min?: number;
   max?: number;
   onQuickButtonClick?: QuickButtonClickHandler;
-  inputRef: RefObject<HTMLInputElement>;
+  inputRef?: RefObject<HTMLInputElement>;
 }
 
 export const AmountContainer = styled.div``;
@@ -121,7 +121,7 @@ export const ConfirmAmount = forwardRef<HTMLDivElement, ConfirmAmountProps>((pro
     min = 0,
     max = available,
     onQuickButtonClick = DEFAULT_EVENT_HANDLER as QuickButtonClickHandler,
-    inputRef,
+    inputRef = null,
   } = props;
 
   const formatMoney = useMemo(() => '$' + exchangeRate.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ','), [exchangeRate]);
