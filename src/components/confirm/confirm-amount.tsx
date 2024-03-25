@@ -2,6 +2,7 @@ import { forwardRef, useMemo, ChangeEvent, MouseEvent, RefObject } from 'react';
 import styled from 'styled-components';
 import equalSrc from '../assets/equal.svg';
 import { DEFAULT_EVENT_HANDLER, DEFAULT_QUICK_BUTTONS } from './confirm-const';
+import { User } from './confirm-account';
 
 export type QuickButton = {
   id: number | string;
@@ -14,7 +15,7 @@ export type QuickButtonClickHandler = (id: number | string, target: QuickButton,
 
 export interface ConfirmAmountProps {
   available: number;
-  payerAvatar: string;
+  payer: User;
   exchangeRate: number;
   quickButtons?: QuickButton[];
   value?: number;
@@ -111,7 +112,7 @@ const QuickButton = styled.span`
 export const ConfirmAmount = forwardRef<HTMLDivElement, ConfirmAmountProps>((props, ref) => {
   const {
     available,
-    payerAvatar,
+    payer,
     exchangeRate,
     quickButtons = DEFAULT_QUICK_BUTTONS,
     value,
@@ -135,7 +136,7 @@ export const ConfirmAmount = forwardRef<HTMLDivElement, ConfirmAmountProps>((pro
       </Header>
       <Content>
         <LeftElement>
-          <img src={payerAvatar} alt="" />
+          <img src={payer.avatar} alt="" />
         </LeftElement>
         <InputWrapper>
           <StyledInput

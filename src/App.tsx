@@ -5,12 +5,12 @@ function App() {
   // Availabe amount should be get from api, here is a demo.
   const available = 2;
   const inputRef = useRef<HTMLInputElement>(null);
-  const [inputValue, setInputValue] = useState<number>(available)
+  const [inputValue, setInputValue] = useState<number>(available);
 
   const onChange: OnChange = (e) => {
     console.log('e.target.value: ', e.target.value);
-    setInputValue(Number(e.target.value))
-  }
+    setInputValue(Number(e.target.value));
+  };
 
   const handleQuickButtonClick = (id: number | string) => {
     switch (id) {
@@ -32,13 +32,19 @@ function App() {
 
   const onConfirm = () => {
     console.log('onConfirm');
-  }
+  };
 
   const props = {
-    payer: 'atom1xy5ym6wwz9a',
-    receiver: 'osmo1xy5ym6wwz9a',
-    payerAvatar: 'https://picsum.photos/30',
-    receiverAvatar: 'https://picsum.photos/22',
+    payer: {
+      name: 'atom1xy5ym6wwz9a',
+      id: 123,
+      avatar: 'https://picsum.photos/30',
+    },
+    receiver: {
+      name: 'osmo1xy5ym6wwz9a',
+      id: 321,
+      avatar: 'https://picsum.photos/22',
+    },
     available,
     exchangeRate: 1013,
     inputRef,
@@ -46,6 +52,9 @@ function App() {
     onChange,
     onQuickButtonClick: handleQuickButtonClick,
     onConfirm,
+    onEditAccount: () => {
+      console.log('edit');
+    },
   };
 
   return (

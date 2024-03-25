@@ -1,16 +1,15 @@
 import { forwardRef } from 'react';
 import styled from 'styled-components';
-import { ConfirmAccount } from './confirm-account';
+import { ConfirmAccount, IconClickHandler, User } from './confirm-account';
 import arrowSrc from '../assets/arrow-right.svg';
 import { DEFAULT_FROM_TITLE, DEFAULT_TO_TITLE } from './confirm-const';
 
 export interface ConfirmFlowProps {
-  payer: string;
-  receiver: string;
-  payerAvatar: string;
-  receiverAvatar: string;
+  payer: User;
+  receiver: User;
   from?: string;
   to?: string;
+  onEditAccount?: IconClickHandler;
 }
 
 export const FlowContainer = styled.div`
@@ -25,15 +24,15 @@ const IconWrap = styled.span`
 `;
 
 export const ConfirmFlow = forwardRef<HTMLDivElement, ConfirmFlowProps>((props, ref) => {
-  const { payer, receiver, payerAvatar, receiverAvatar, from = DEFAULT_FROM_TITLE, to = DEFAULT_TO_TITLE } = props;
+  const { payer, receiver, from = DEFAULT_FROM_TITLE, to = DEFAULT_TO_TITLE, onEditAccount } = props;
 
   return (
     <FlowContainer ref={ref}>
-      <ConfirmAccount user={payer} avatar={payerAvatar} title={from} />
+      <ConfirmAccount user={payer} title={from} />
       <IconWrap>
         <img src={arrowSrc} alt="arrow" />
       </IconWrap>
-      <ConfirmAccount user={receiver} avatar={receiverAvatar} title={to} />
+      <ConfirmAccount user={receiver} title={to} onEditAccount={onEditAccount} />
     </FlowContainer>
   );
 });

@@ -16,12 +16,11 @@ export const useProps = (props: ConfirmProps) => {
 };
 
 export const useBodyProps = (bodyProps: ConfirmBodyProps) => {
-  const { inputRef, payer, receiver, payerAvatar, receiverAvatar, from, to, available, exchangeRate, quickButtons, value, onChange, defaultValue, min, max, onQuickButtonClick, timer, onTimeout } =
-    bodyProps;
-  const flowProps: ConfirmFlowProps = useMemo(() => ({ payer, receiver, payerAvatar, receiverAvatar, from, to }), [payer, receiver, payerAvatar, receiverAvatar, from, to]);
+  const { inputRef, payer, receiver, from, to, onEditAccount, available, exchangeRate, quickButtons, value, onChange, defaultValue, min, max, onQuickButtonClick, timer, onTimeout } = bodyProps;
+  const flowProps: ConfirmFlowProps = useMemo(() => ({ payer, receiver, from, to, onEditAccount }), [payer, receiver, from, to, onEditAccount]);
   const amountProps: ConfirmAmountProps = useMemo(
-    () => ({ available, payerAvatar, exchangeRate, quickButtons, value, onChange, defaultValue, min, max, onQuickButtonClick, inputRef }),
-    [available, payerAvatar, exchangeRate, quickButtons, value, onChange, defaultValue, min, max, onQuickButtonClick, inputRef],
+    () => ({ available, payer, exchangeRate, quickButtons, value, onChange, defaultValue, min, max, onQuickButtonClick, inputRef }),
+    [available, payer, exchangeRate, quickButtons, value, onChange, defaultValue, min, max, onQuickButtonClick, inputRef],
   );
   const alertProps: ConfirmAlertProps = useMemo(() => ({ timer, onTimeout }), [timer, onTimeout]);
   return { flowProps, amountProps, alertProps };

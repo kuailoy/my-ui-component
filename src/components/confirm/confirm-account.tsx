@@ -1,13 +1,39 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState, MouseEvent } from 'react';
 import styled from 'styled-components';
+import IconEdit from '../assets/edit.svg?react';
+
+export type User = {
+  id: number | string;
+  name: string;
+  avatar: string;
+};
+
+export type IconClickHandler = (event: MouseEvent<SVGSVGElement, MouseEvent>) => void;
 
 export interface ConfirmAccountProps {
-  user: string;
-  avatar: string;
+  user: User;
   title: string;
+  onEditAccount?: IconClickHandler;
 }
 
-export const AccountContainer = styled.div``;
+interface IconEditProps {
+  visible: boolean;
+  onClick?: IconClickHandler;
+}
+
+export const AccountContainer = styled.div`
+  position: relative;
+`;
+
+const StyledIconEdit = styled(IconEdit)<IconEditProps>`
+  display: ${(props) => (props.visible ? 'block' : 'none')};
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  right: 6px;
+  bottom: 15px;
+  cursor: pointer;
+`;
 
 const AccountTitle = styled.h3`
   font-size: 14px;
@@ -54,17 +80,35 @@ const AccountItemContainer = styled.div`
 `;
 
 export const ConfirmAccount = forwardRef<HTMLDivElement, ConfirmAccountProps>((props, ref) => {
-  const { user, avatar, title } = props;
+  const { user, title, onEditAccount } = props;
+
+  const [editButtonVisible, setEditButtonVisible] = useState<boolean>(false);
+
+  const handleMouseEnter = () => {
+    setEditButtonVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setEditButtonVisible(false);
+  };
+
+  const showEditEvent = onEditAccount
+    ? {
+        onMouseEnter: handleMouseEnter,
+        onMouseLeave: handleMouseLeave,
+      }
+    : undefined;
 
   return (
-    <AccountContainer ref={ref}>
+    <AccountContainer ref={ref} {...showEditEvent}>
       <AccountTitle>{title}</AccountTitle>
       <AccountItemContainer>
         <AvatarContainer>
-          <AvatarImage src={avatar} alt="avatar" />
+          <AvatarImage src={user.avatar} alt="avatar" />
         </AvatarContainer>
-        <UserName title={user}>{user}</UserName>
+        <UserName title={user.name}>{user.name}</UserName>
       </AccountItemContainer>
+      {onEditAccount && <StyledIconEdit visible={editButtonVisible} onClick={onEditAccount} />}
     </AccountContainer>
   );
 });
