@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import styled from 'styled-components';
+import { DEFAULT_EVENT_HANDLER } from './confirm-const';
 
 export interface ConfirmButtonProps {
   primary?: boolean;
@@ -28,7 +29,7 @@ const Button = styled.button<{ $primary?: boolean }>`
 `;
 
 export const ConfirmButton = forwardRef<HTMLButtonElement, ConfirmButtonProps>((props, ref) => {
-  const { text, primary, onClick } = props;
+  const { text, primary, onClick = DEFAULT_EVENT_HANDLER } = props;
   return (
     <Button $primary={primary} ref={ref} onClick={onClick}>
       {text}

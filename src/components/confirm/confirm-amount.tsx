@@ -1,7 +1,7 @@
 import { forwardRef, useMemo, ChangeEvent, MouseEvent, RefObject } from 'react';
 import styled from 'styled-components';
 import equalSrc from '../assets/equal.svg';
-import { DEFAULT_QUICK_BUTTONS } from './confirm-const';
+import { DEFAULT_EVENT_HANDLER, DEFAULT_QUICK_BUTTONS } from './confirm-const';
 
 export type QuickButton = {
   id: number | string;
@@ -9,6 +9,8 @@ export type QuickButton = {
 };
 
 export type OnChange = (event: ChangeEvent<HTMLInputElement>) => void;
+
+export type QuickButtonClickHandler = (id: number | string, target: QuickButton, event: MouseEvent<HTMLSpanElement>) => void;
 
 export interface ConfirmAmountProps {
   available: number;
@@ -20,11 +22,11 @@ export interface ConfirmAmountProps {
   defaultValue?: number;
   min?: number;
   max?: number;
-  onQuickButtonClick?: (id: number | string, target: QuickButton, event: MouseEvent<HTMLSpanElement>) => void;
+  onQuickButtonClick?: QuickButtonClickHandler;
   inputRef: RefObject<HTMLInputElement>;
 }
 
-const AmountContainer = styled.div``;
+export const AmountContainer = styled.div``;
 
 const Header = styled.div`
   display: flex;
@@ -45,14 +47,14 @@ const AvailableInfo = styled.span`
 `;
 const Content = styled.div`
   height: 58px;
-  border: 1px solid ${props => props.theme.border};
+  border: 1px solid ${(props) => props.theme.border};
   border-radius: 6px;
   display: flex;
 `;
 const LeftElement = styled.span`
   width: 58px;
   flex-shrink: 0;
-  border-right: 1px solid ${props => props.theme.border};
+  border-right: 1px solid ${(props) => props.theme.border};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,15 +76,15 @@ const StyledInput = styled.input`
   border: none;
   outline: none;
   font-weight: 700;
-  background-color: ${props => props.theme.background};
-  color: ${props => props.theme.text};
+  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.text};
 `;
 
 const RightElement = styled.span`
   font-size: 12px;
   display: flex;
   align-items: center;
-  color: ${props => props.theme.text};
+  color: ${(props) => props.theme.text};
   padding-right: 16px;
 `;
 
@@ -100,7 +102,7 @@ const QuickButton = styled.span`
   font-size: 12px;
   padding: 7px;
   border-radius: 6px;
-  background-color: ${props => props.theme.block};
+  background-color: ${(props) => props.theme.block};
   font-weight: 700;
   cursor: pointer;
   margin-left: 8px;
@@ -113,11 +115,11 @@ export const ConfirmAmount = forwardRef<HTMLDivElement, ConfirmAmountProps>((pro
     exchangeRate,
     quickButtons = DEFAULT_QUICK_BUTTONS,
     value,
-    onChange = () => {},
+    onChange = DEFAULT_EVENT_HANDLER,
     defaultValue = available,
     min = 0,
     max = available,
-    onQuickButtonClick = () => {},
+    onQuickButtonClick = DEFAULT_EVENT_HANDLER as QuickButtonClickHandler,
     inputRef,
   } = props;
 

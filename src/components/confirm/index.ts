@@ -13,8 +13,14 @@ export type { ConfirmFlowProps } from './confirm-flow';
 export { ConfirmAccount, AccountContainer } from './confirm-account';
 export type { ConfirmAccountProps } from './confirm-account';
 
-export { ConfirmAmount } from './confirm-amount';
-export type { QuickButton, OnChange, ConfirmAmountProps } from './confirm-amount';
+export { ConfirmAmount, AmountContainer } from './confirm-amount';
+export type { QuickButton, OnChange, QuickButtonClickHandler, ConfirmAmountProps } from './confirm-amount';
 
-export { ConfirmAlert } from './confirm-alert';
+export { ConfirmAlert, AlertWrapper } from './confirm-alert';
 export type { ConfirmAlertProps } from './confirm-alert';
+
+export { ConfirmFooter, FooterWrapper, FooterItem } from './confirm-footer';
+export type { ConfirmFooterProps } from './confirm-footer';
+
+export { ConfirmButton } from './confirm-button';
+export type { ConfirmButtonProps } from './confirm-button';

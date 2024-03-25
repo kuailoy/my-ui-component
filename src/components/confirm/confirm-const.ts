@@ -64,3 +64,8 @@ export const DEFAULT_QUICK_BUTTONS: QuickButton[] = [
 
 export const DEFAULT_FROM_TITLE: string = 'From Cosmos Hub';
 export const DEFAULT_TO_TITLE: string = 'To Osmosis';
+
+export const DEFAULT_TIMER: number = 60;
+
+export const DEFAULT_CONFIRM_TEXT: string = 'Transfer';
+export const DEFAULT_CANCEL_TEXT: string = 'Cancel';

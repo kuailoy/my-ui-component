@@ -1,12 +1,13 @@
 import { forwardRef } from 'react';
 import styled from 'styled-components';
 import { useTimer } from './use-timer';
+import { DEFAULT_TIMER } from './confirm-const';
 
 export interface ConfirmAlertProps {
   timer?: number;
 }
 
-const Wrapper = styled.div`
+export const AlertWrapper = styled.div`
   margin-top: 24px;
   font-size: 12px;
   color: ${props => props.theme.text};
@@ -17,12 +18,12 @@ const Wrapper = styled.div`
 `;
 
 export const ConfirmAlert = forwardRef<HTMLHeadingElement, ConfirmAlertProps>((props, ref) => {
-  const { timer = 60 } = props;
+  const { timer = DEFAULT_TIMER } = props;
   const seconds = useTimer(timer);
 
   return (
-    <Wrapper ref={ref}>
+    <AlertWrapper ref={ref}>
       Estimated time: <b>{seconds} seconds</b>
-    </Wrapper>
+    </AlertWrapper>
   );
 });

@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import styled from 'styled-components';
 import { ConfirmButton } from './confirm-button';
+import { DEFAULT_CANCEL_TEXT, DEFAULT_CONFIRM_TEXT, DEFAULT_EVENT_HANDLER } from './confirm-const';
 
 export interface ConfirmFooterProps {
   confirmText?: string;
@@ -9,26 +10,26 @@ export interface ConfirmFooterProps {
   onCancel?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const FlexBox = styled.div`
+export const FooterWrapper = styled.div`
   margin-top: 12px;
   display: flex;
   flex-direction: column;
 `;
-const FlexElement = styled.div`
+export const FooterItem = styled.div`
   flex: 1;
   margin-top: 4px;
 `;
 
 export const ConfirmFooter = forwardRef<HTMLHeadingElement, ConfirmFooterProps>((props, ref) => {
-  const { confirmText = 'Transfer', cancelText = 'Cancel', onConfirm = () => {}, onCancel = () => {} } = props;
+  const { confirmText = DEFAULT_CONFIRM_TEXT, cancelText = DEFAULT_CANCEL_TEXT, onConfirm = DEFAULT_EVENT_HANDLER, onCancel = DEFAULT_EVENT_HANDLER } = props;
   return (
-    <FlexBox ref={ref}>
-      <FlexElement>
+    <FooterWrapper ref={ref}>
+      <FooterItem>
         <ConfirmButton primary text={confirmText} onClick={onConfirm} />
-      </FlexElement>
-      <FlexElement>
+      </FooterItem>
+      <FooterItem>
         <ConfirmButton text={cancelText} onClick={onCancel} />
-      </FlexElement>
-    </FlexBox>
+      </FooterItem>
+    </FooterWrapper>
   );
 });

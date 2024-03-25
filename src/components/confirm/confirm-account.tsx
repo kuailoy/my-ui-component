@@ -16,7 +16,32 @@ const AccountTitle = styled.h3`
   margin: 23px 0 12px;
 `;
 
-export const AccountItemContainer = styled.div`
+const AvatarContainer = styled.span`
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #cccccc;
+  overflow: hidden;
+`;
+
+const AvatarImage = styled.img`
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 0 1px rgba(240, 246, 252, 0.1);
+`;
+
+const UserName = styled.p`
+  padding-left: 7px;
+  font-size: 14px;
+  color: #697584;
+  line-height: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
+const AccountItemContainer = styled.div`
   display: flex;
   align-items: center;
   background-color: ${(props) => props.theme.block};
@@ -26,28 +51,6 @@ export const AccountItemContainer = styled.div`
   padding-right: 24px;
   border-radius: 6px;
   overflow: hidden;
-  span {
-    flex-shrink: 0;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background-color: #cccccc;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: 100%;
-      box-shadow: 0 0 0 1px rgba(240, 246, 252, 0.1);
-    }
-  }
-  p {
-    padding-left: 7px;
-    font-size: 14px;
-    color: #697584;
-    line-height: 1;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
 `;
 
 export const ConfirmAccount = forwardRef<HTMLDivElement, ConfirmAccountProps>((props, ref) => {
@@ -57,10 +60,10 @@ export const ConfirmAccount = forwardRef<HTMLDivElement, ConfirmAccountProps>((p
     <AccountContainer ref={ref}>
       <AccountTitle>{title}</AccountTitle>
       <AccountItemContainer>
-        <span>
-          <img src={avatar} alt="" />
-        </span>
-        <p title={user}>{user}</p>
+        <AvatarContainer>
+          <AvatarImage src={avatar} alt="avatar" />
+        </AvatarContainer>
+        <UserName title={user}>{user}</UserName>
       </AccountItemContainer>
     </AccountContainer>
   );
